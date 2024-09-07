@@ -72,7 +72,7 @@ def metadata_to_geodataframe(metadata, path, include_row_groups=False):
             rows.append(row(path, i, [xmin, ymin, xmax, ymax], row_group.num_rows))
 
     # Let's use -1 as the row group index for the whole file
-    # rows.append(row(path, -1, file_bbox, metadata.num_rows))
+    rows.append(row(path, -1, file_bbox, metadata.num_rows))
 
     gdf = gpd.GeoDataFrame(rows)
 
