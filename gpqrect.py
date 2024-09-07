@@ -29,7 +29,7 @@ logging.basicConfig(level=logging.INFO)
 
 def parquet_path_to_geodataframe(path, filesystem=None):
     metadata = pq.read_metadata(path, filesystem=filesystem)
-    gdf = metadata_to_geodataframe(metadata, path, include_row_groups=True)
+    gdf = metadata_to_geodataframe(metadata, path, include_row_groups=False)
 
     return gdf
 
@@ -144,7 +144,7 @@ def main():
     ds = pq.ParquetDataset("overturemaps-us-west-2/release/2024-08-20.0/theme=buildings/type=building", filesystem=fs.S3FileSystem(anonymous=True, region="us-west-2"))
     gdf = get_rects_parallel(ds)
     gdf = gdf.drop(["row_group_index", "num_rows"], axis=1)
-    gdf.to_parquet("row_groups.parquet", index=False)
+    gdf.to_parquet("_index.parquet", index=False)
 
 
 if __name__ == "__main__":
